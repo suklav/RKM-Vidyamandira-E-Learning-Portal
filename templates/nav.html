@@ -1,0 +1,96 @@
+
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-fixed-top sticky-top" style="background-color: #c05c25;">
+<div class="row my-row">
+    <div class="col-2-md">
+      <center> <a class="navbar-brand" href="/">
+     
+    <img src="{% static "dist/img/rkmvhomelogo.png" %}" alt="rkmvLogo" height="170" width="130" algin="left"></a>
+    <img src="{% static "dist/img/home_name.png" %}" width="70%" height="70%" algin="center"></a>
+  </center>
+  
+</div>
+<div class="container-fluid">
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+</button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav m-auto center">
+            <li class="nav-item {% block homeactive %}{% endblock homeactive %}">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            
+            <li class="nav-item {% block studyzoneactive %}{% endblock studyzoneactive %} ">
+            {% if user.is_authenticated %}
+                <a class="nav-link" href="admin_home">Study Zone<span class="sr-only">(current)</span></a>
+                {% else %}
+                <a class="nav-link" href="" data-toggle="modal"  data-target="#loginModal" >Study Zone<span class="sr-only">(current)</span></a>
+                {% endif %}
+            </li>
+            <li class="nav-item dropdown {% block dropdownactive %}{% endblock dropdownactive %}">
+                <a href="javascript:void(0)" class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Academics</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/videos">Videos</a>
+                    <a class="dropdown-item" href="/exam">Exam Portal</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/referenceBooks">Reference Books</a>
+                </div>
+            </li>
+
+            <li class="nav-item {% block blogactive %}{% endblock blogactive %}">
+                <a class="nav-link" href="/blog">MathsRelated-Blog</a>
+            </li>
+
+            <li class="nav-item {% block aboutactive %}{% endblock aboutactive %}">
+                <a class="nav-link" href="/about">About</a>
+            </li>
+
+            <li class="nav-item {% block contactactive %}{% endblock contactactive %}">
+                <a class="nav-link" href="/contact">Contact</a>
+            </li>
+        </ul>
+
+        <div class="ml auto form-inline">
+            <form method="get" action="/search" class=" my-2 mx-3 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                    name="query" id="query">
+                <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <!-- <a href="/admin" role="button" target="_blank" class="btn btn-outline-success m-2 my-sm-0">Admin Panel</a>-->
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav mr-2">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Logged in as {{request.user}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <form action='/logout' method='post'>
+                      {% csrf_token %}
+                      <div class="form-group">
+                      <input type="hidden" name="value" >
+                      </div>
+                      
+                        <button class="dropdown-item" type="submit">Logout</button>
+                   
+                      </form>
+                    </div>
+                </li>
+            </ul>
+
+            {% else %}
+            <!-- Button to trigger login modal -->
+            <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#loginModal">
+                Login
+            </button>
+            <!-- Button to trigger singup modal -->
+            <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#singupModal">
+                Sing Up
+            </button> {% endif %}
+        </div>
+    </div>
+</div>
+</nav>

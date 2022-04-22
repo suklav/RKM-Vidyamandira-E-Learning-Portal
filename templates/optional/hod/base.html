@@ -1,0 +1,67 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %}Study Zone{% endblock title %} 
+
+
+{% block prebody %} 
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="{% static "dist/img/rkmvLogo.png" %}" alt="rkmvLogo" height="60" width="60">
+  </div>
+  {% endblock prebody %} 
+
+
+  {%block nav%}
+  <!-- Navbar -->
+  
+  <nav class="main-header navbar navbar-expand-lg navbar-primary navbar-dark sticky-top ">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="index3.html" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">Contact</a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    {% include 'home/hod_template/notification_template.html' %}
+  </nav>
+  <!-- /.navbar -->
+  {%endblock nav%}
+
+  {% block body %} 
+  <!-- Main Sidebar Container -->
+  {% include 'home/hod_template/sidebar_template.html' %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    {% include 'home/hod_template/content_header.html' %}
+    <!-- /.content-header -->
+{% block main_content %}{% endblock main_content %}
+    <!-- Main content -->
+    {% include 'home/hod_template/home_content.html' %}
+    <!-- /.content -->
+    
+  </div>
+  <!-- /.content-wrapper -->
+  <!--{% include 'home/hod_template/footer_template.html' %}-->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+{% endblock body %} 
+</html>

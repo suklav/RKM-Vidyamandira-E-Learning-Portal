@@ -1,0 +1,209 @@
+{% extends 'home/hod_template/hod_base_template.html' %} 
+{% block page_title %}
+    Add Staff
+{% endblock page_title %}
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Staff</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form role="form" method="POST" action="{% url 'add_staff_save' %}">
+                        {% csrf_token %}
+
+                        
+                                {% comment %} Display Messages {% endcomment %}
+                                {% if messages %}
+                                <div class="form-group">
+                                <div class="col-12">
+                                    {% for message in messages %}
+                                    {% if message.tags == "error" %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                        {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                    {% elif message.tags == "success" %}
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                        {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                </div>
+                                {% endif %}
+                            
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Email address</label>
+                                <input type="email" class="form-control" name="email" placeholder="Enter email" id="id_email" required>
+                            </div>
+
+                              <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" name="first_name" placeholder="First Name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" name="last_name" placeholder="Last Name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" class="form-control" name="username" placeholder="Username" id="id_username" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="phonenumber" class="form-control" name="phone" placeholder="Phone Number" id="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Institute Name</label>
+                                <input type="text" class="form-control" name="institute_name" placeholder="Institute Name" id="id_institute_name" required>
+                            </div>
+                            <div class="form-group">
+                               <select class="form-control" name="gender">
+                               <option>Male</option>
+                               <option>Female</option>
+                               </select>
+                            </div>
+                            
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Date of Birth </label>
+                                    <input type="date" class="form-control" name="dob" id="dob" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Choose Password</label>
+                                <input type="password" class="form-control" id="pass1" name="pass1" placeholder="choose your password" autocomplete="pass1" required>
+                                <small id="unamehelp" class="form-text text-muted px-1">
+                                Your password must be at least 8 and less than 20 characters (must have One Uppercase &
+                                one lower case letters, numbers & amp; underscores allowed) with no spaces
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="pass2">Confirm Password</label>
+                                <input type="password" class="form-control" id="pass2" name="pass2"
+                                    placeholder="Enter your password again" autocomplete="pass2" required>
+                            </div>
+                          
+
+                            <div class="form-group">
+                                <label>Address</label>
+                                <textarea class="form-control" name="address" placeholder="Address" required></textarea>
+                            </div>
+
+                           <div class="form-control">
+                             <label class="header">Profile Photo:</label>
+                                <input type="file" name="profile_pic" placeholder="Photo" capture>
+                            </div>
+
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Add Staff</button>
+                        </div>
+                    </form>
+                    </div>
+                    <!-- /.card -->
+
+                </div>
+            </div>
+
+        </div><!-- /.container-fluid -->
+      </section>
+
+    <!-- /.content -->
+{% endblock main_content %}
+
+    {% block custom_js %}
+    {% comment %} Checking if email and username already exists or not usin Ajax {% endcomment %}
+
+    <script>
+        $(document).ready(function(){
+            // keyup event will be triggered when user leaves keyboard
+            $("#id_email").keyup(function(){
+                var email = $(this).val();
+
+                if(email!=""){
+                    $.ajax({
+                        url : '{% url 'check_email_exist' %}',
+                        type : 'POST',
+                        data : {email:email}
+                    })
+                    .done(function(response){
+                        //console.log(response);
+
+                        if(response == "True"){
+                            $(".email_error").remove();
+                            $("<span class='email_error' style='color: red; padding: 5px; font-weight: bold;'> Email Not Available. </span>").insertAfter("#id_email")
+                        }
+                        else{
+                            $(".email_error").remove();
+                            $("<span class='email_error' style='color: green; padding: 5px; font-weight: bold;'> Email Available. </span>").insertAfter("#id_email")
+                        }
+                    })
+
+                    .fail(function(){
+                        console.log("Failed");
+                    })
+                }
+                else{
+                    $(".email_error").remove();
+                }
+                
+            })
+
+            $("#id_username").keyup(function(){
+                var username = $(this).val();
+                
+                if(username!=""){
+                    $.ajax({
+                        url : '{% url 'check_username_exist' %}',
+                        type : 'POST',
+                        data : {username:username}
+                    })
+                    .done(function(response){
+                        //console.log(response);
+
+                        if(response == "True"){
+                            $(".username_error").remove();
+                            $("<span class='username_error' style='color: red; padding: 5px; font-weight: bold;'> Username Not Available. </span>").insertAfter("#id_username")
+                        }
+                        else{
+                            $(".username_error").remove();
+                            $("<span class='username_error' style='color: green; padding: 5px; font-weight: bold;'> Username Available. </span>").insertAfter("#id_username")
+                        }
+                    })
+
+                    .fail(function(){
+                        console.log("Failed");
+                    })
+                }
+                else{
+                    $(".username_error").remove();
+                }
+                
+            })
+        })
+    </script>
+
+  {% endblock custom_js %}

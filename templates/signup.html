@@ -1,0 +1,94 @@
+
+{% load static %}
+
+  <div class="modal fade" id="singupModal" tabindex="-1" role="dialog" aria-labelledby="singupModal"
+      aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="singupModalTitle">SingUp Here</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <form action='/singup' method='post'>
+
+                     
+
+                      <div class="form-group">
+                          <label for="fname">First Name</label>
+                          <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name"
+                              autocomplete="fname" required>
+                      </div>
+
+                      <div class="form-group">
+                          <label for="lname">Last Name</label>
+                          <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name"
+                              autocomplete="lname" required>
+                      </div>
+
+
+                      <div class="form-group">
+                          <label for="email">Email address</label>
+                          <div class="mx-0">
+                              <div class="col-md-8 px-0">
+                                  <input type="email" class="form-control" id="email" name="email"
+                                      placeholder="name@example.com" autocomplete="email" required>
+                                  <small id="otpMessage" class="form-text"></small>
+                              </div>
+                          </div>
+                          <div class="col-md-4 my-1 px-0">
+                              <button class="btn btn-danger btn-sm mt-2" id="otpbtn">Send OTP</button>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label for="phonenumber">Phone Number</label>
+                          <div class="mx-0">
+                              <div class="col-md-8 px-0">
+                                  <input type="phonenumber" class="form-control" id="phonenumber" name="phonenumber" placeholder="Enter your Phone Number" autocomplete="phonenumber" required>
+                                  <small id="otpMessage" class="form-text"></small>
+                              </div>
+                          </div>
+                          <div class="col-md-4 my-1 px-0">
+                              <button class="btn btn-danger btn-sm mt-2" id="otpbtn">Send OTP</button>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label for="designation">Designation</label>
+                          <input type="text" class="form-control" id="designation" name="designation" placeholder="Enter your designation"
+                              autocomplete="designation" required>
+                      </div>
+
+                      <div class="form-group">
+                          <label for="instname">Institution Name</label>
+                          <input type="text" class="form-control" id="instname" name="instname" placeholder="Name of Your Institution"
+                              autocomplete="instname" required>
+                      </div>
+
+                      <div class="form-group">
+                          <label for="pass1">Choose Password</label>
+                          <input type="password" class="form-control" id="pass1" name="pass1"
+                              placeholder="choose your password" autocomplete="pass1" required>
+                          <small id="unamehelp" class="form-text text-muted px-1">
+                              Your password must be at least 8 and less than 20 characters (must have One Uppercase &
+                              one lower case letters, numbers & amp; underscores allowed) with no spaces
+                          </small>
+                      </div>
+
+                      <div class="form-group">
+                          <label for="pass2">Confirm Password</label>
+                          <input type="password" class="form-control" id="pass2" name="pass2"
+                              placeholder="Enter your password again" autocomplete="pass2" required>
+                      </div>
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-primary">SingUp</button>
+                  </form>
+              </div>
+              <div class="modal-footer">
+              </div>
+          </div>
+      </div>
+  </div>

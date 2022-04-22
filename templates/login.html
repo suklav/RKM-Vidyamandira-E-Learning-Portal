@@ -1,0 +1,35 @@
+
+{% load static %}
+
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="loginModalTitle">Login Here</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <form action='/login' method='post'>
+                      {% csrf_token %}
+                      <div class="form-group">
+                          <label for="username">Username(Email ID)</label>
+                          <input type="text" class="form-control" id="loginusername" name="loginusername"
+                              placeholder="Enter your Email id" autocomplete="loginusername" required>
+                      </div>
+
+                      <div class="form-group">
+                          <label for="pass">Password</label>
+                          <input type="password" class="form-control" id="loginpassword" name="loginpassword"
+                              placeholder="Enter your password " autocomplete="loginpassword" required>
+                      </div>
+
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <a href="" data-toggle="modal" data-target="#singupModal" >Don't Have an Account?<span class="sr-only">(current)</span></a>
+                  </form>
+              </div>
+              
+          </div>
+      </div>
+  </div>
